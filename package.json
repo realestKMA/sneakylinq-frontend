@@ -9,6 +9,7 @@
     "commit": "cz"
   },
   "dependencies": {
+    "@vueuse/components": "^10.1.2",
     "@vueuse/core": "^10.1.2",
     "commitizen": "^4.3.0",
     "pinia": "^2.0.36",

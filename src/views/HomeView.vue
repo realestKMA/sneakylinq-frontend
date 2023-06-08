@@ -1,48 +1,47 @@
 <script setup>
 import { ref } from 'vue';
-import AppInputField from '../components/AppInputField.vue';
+import AppLogo from '../components/AppLogo.vue';
+import ProceedWithQRCode from '../components/ProceedWithQRCode.vue'
+import ProceedWithAlias from '../components/ProceedWithAlias.vue'
 
-
-const alias = ref('')
 </script>
 
 <template>
-  <main class="w-full h-full bg-white flex items-center justify-center gap-x-20 selection:bg-black selection:text-white">
+  <main class="w-full h-full bg-white flex flex-col items-center justify-center selection:bg-black selection:text-white">
 
-    <!-- proceed with qr code -->
-    <div class="flex flex-col gap-10 items-center justify-center">
+    <section class="w-full h-full flex flex-grow items-center justify-center overflow-hidden md:gap-x-10 lg:gap-x-20">
 
-      <!-- qr code -->
-      <div class="w-72 h-72 bg-stone-100 rounded"></div>
-      <!-- qr code -->
-
-      <div class="flex flex-col gap-2 items-center justify-center">
-        <h4 class="text-black text-xl font-bold">Proceed with QR code</h4>
-        <p class="text-stone-600 text-sm text-center">
-          Scan this code, visit the url and follow the<br>instructions. Do not close this page.
-        </p>
+      <!-- proceed with qr code -->
+      <ProceedWithQRCode />
+      <!-- proceed with qr code -->
+  
+      <!-- divide -->
+      <div class="h-full hidden flex-col gap-y-4 items-center justify-center md:flex">
+        <div class="h-48 w-px bg-zinc-200"></div>
+        <p class="text-xl text-zinc-200">Or</p>
+        <div class="h-48 w-px bg-zinc-200"></div>
       </div>
+      <!-- divide -->
+  
+      <!-- proceed with alias -->
+      <ProceedWithAlias class="w-full md:w-auto" />
+      <!-- proceed with alias -->
+      
+    </section>
 
-    </div>
-    <!-- proceed with qr code -->
+    <!-- home footer -->
+    <footer class="w-full flex flex-col items-center justify-center p-4 gap-y-2">
+      <AppLogo class="text-2xl" />
+      <span class="inline-flex gap-x-1 text-xs text-zinc-500">
+        <p>By the</p>
+        <a href="http://github.com/realestkma" class="text-cyan-400 hover:text-cyan-500">RealestKMA</a>
+        <p>from the</p>
+        <span>
+          <p>234</p>
+        </span>
+      </span>
+    </footer>
+    <!-- home footer -->
 
-    <!-- divide -->
-    <div class="h-full flex flex-col gap-4 items-center justify-center">
-      <div class="h-48 w-px bg-stone-200"></div>
-      <p class="text-xl text-stone-200">Or</p>
-      <div class="h-48 w-px bg-stone-200"></div>
-    </div>
-    <!-- divide -->
-
-    <!-- proceed with alias -->
-    <div class="flex flex-col border">
-
-      <!-- input field -->
-      <AppInputField v-model:model-value="alias" />
-      <!-- input field -->
-
-    </div>
-    <!-- proceed with alias -->
-    
   </main>
 </template>
