@@ -1,6 +1,17 @@
 <script setup>
+import ChatAlias from './ChatAlias.vue';
 import DeviceAlias from './DeviceAlias.vue';
 import IconAddPlus from './icons/IconAddPlus.vue';
+import { RouterLink } from 'vue-router';
+
+// data
+const aliases = [
+    {id: 0, alias: "yo_swerve.linq"},
+    {id: 1, alias: "cinccinatinnnnn.linq"},
+    {id: 2, alias: "pusha_t.linq"},
+    {id: 3, alias: "codename.linq"},
+    {id: 4, alias: "bangerly.linq"},
+]
 </script>
 
 
@@ -14,11 +25,16 @@ import IconAddPlus from './icons/IconAddPlus.vue';
         <div class="flex flex-col p-4">
 
             <!-- new chat -->
-            <button type="button" class="flex items-center space-x-2 text-zinc-400 bg-transparent p-2 rounded-sm duration-150 hover:bg-zinc-900 hover:text-white">
+            <RouterLink :to="{name: 'newlinq'}" class="flex items-center gap-x-2 text-zinc-400 bg-transparent p-3 rounded-sm duration-150 hover:bg-zinc-800 hover:text-white md:p-2">
                 <IconAddPlus class="w-5 h-5" />
-                <p class="text-lg">New chat</p>
-            </button>
+                <p class="text-base md:text-lg">New chat</p>
+            </RouterLink>
             <!-- new chat -->
+
+            <ChatAlias
+                v-for="chat in aliases"
+                :alias="chat.alias"
+                :key="chat.id" />
         </div>
 
     </main>

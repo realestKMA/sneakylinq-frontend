@@ -5,6 +5,7 @@ import IconEditPencilLineOne from './icons/IconEditPencilLineOne.vue';
 import IconLogOut from './icons/IconLogOut.vue';
 import IconTrashFull from './icons/IconTrashFull.vue';
 import { onClickOutside } from '@vueuse/core'
+import { RouterLink } from 'vue-router';
 
 // refs
 const toggleMenu = ref(false)
@@ -43,7 +44,7 @@ onClickOutside(root, () => toggleMenu.value = false)
             enter-active-class="duration-150"
             leave-to-class="opacity-0 -translate-y-2"
             leave-active-class="duration-150">
-            <div v-if="toggleMenu" class="absolute top-20 left-1 w-11/12 h-auto bg-zinc-800 rounded-sm flex flex-col gap-y-10 justify-between shadow-xl shadow-zinc-800/50 md:left-px">
+            <div v-if="toggleMenu" class="absolute z-30 top-20 left-1 w-11/12 h-auto bg-zinc-800 rounded-sm flex flex-col gap-y-10 justify-between shadow-xl shadow-zinc-800/50 md:left-px">
 
                 <span class="inline-flex flex-col w-full">
                     <button type="button" class="w-full flex items-center gap-x-3 p-4 text-zinc-400 duration-300 hover:text-white hover:bg-zinc-900 md:p-3">
@@ -57,10 +58,10 @@ onClickOutside(root, () => toggleMenu.value = false)
                 </span>
 
                 <span class="inline-flex flex-col w-full border-t border-zinc-700">
-                    <button type="button" class="w-full flex items-center gap-x-3 p-4 text-zinc-400 duration-300 hover:text-white hover:bg-zinc-900 md:p-3">
+                    <RouterLink :to="{name: 'auth'}" class="w-full flex items-center gap-x-3 p-4 text-zinc-400 duration-300 hover:text-white hover:bg-zinc-900 md:p-3">
                         <IconLogOut class="w-5 h-5" />
                         <p class="text-lg md:text-base">Log out</p>
-                    </button>
+                    </RouterLink>
                 </span>
             </div>
         </Transition>

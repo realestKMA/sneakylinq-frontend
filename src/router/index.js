@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import AuthView from '../views/AuthView.vue'
 import DashBoardView from '../views/DashBoardView.vue'
 
 const router = createRouter({
@@ -7,13 +7,31 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'auth',
+      component: AuthView
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: DashBoardView
+      redirect: {name: "dashboardwelcome"},
+      component: DashBoardView,
+      children: [
+        {
+          path: "",
+          name: "dashboardwelcome",
+          component: () => import('../components/DashboardWelcome.vue')
+        },
+        {
+          path: "new-linq",
+          name: "newlinq",
+          component: () => import('../components/DashboardNewLinq.vue')
+        },
+        {
+          path: "chat",
+          name: "dashboardchat",
+          component: () => import('../components/DashBoardChat.vue')
+        },
+      ]
     },
     // {
     //   path: '/about',

@@ -1,18 +1,18 @@
 <script setup>
-import { ref } from 'vue';
 import AppLogo from '../components/AppLogo.vue';
 import ProceedWithQRCode from '../components/ProceedWithQRCode.vue'
 import ProceedWithAlias from '../components/ProceedWithAlias.vue'
-
 </script>
 
 <template>
-  <main class="w-full h-full bg-white flex flex-col items-center justify-center selection:bg-black selection:text-white">
+  <main class="w-full h-full bg-white flex flex-col items-center justify-center">
 
     <section class="w-full h-full flex flex-grow items-center justify-center overflow-hidden md:gap-x-10 lg:gap-x-20">
 
       <!-- proceed with qr code -->
-      <ProceedWithQRCode />
+      <div class="hidden w-full justify-end md:flex md:w-5/12 lg:w-4/12 xl:w-3/12">
+        <ProceedWithQRCode />
+      </div>
       <!-- proceed with qr code -->
   
       <!-- divide -->
@@ -24,7 +24,9 @@ import ProceedWithAlias from '../components/ProceedWithAlias.vue'
       <!-- divide -->
   
       <!-- proceed with alias -->
-      <ProceedWithAlias class="w-full md:w-auto" />
+      <div class="w-10/12 md:w-5/12 lg:w-4/12 xl:w-3/12">
+        <ProceedWithAlias class="w-full md:w-auto" />
+      </div>
       <!-- proceed with alias -->
       
     </section>
