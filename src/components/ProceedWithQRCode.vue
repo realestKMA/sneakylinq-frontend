@@ -1,12 +1,14 @@
 <script setup>
-
+import QrcodeVue from 'qrcode.vue';
 </script>
 
 <template>
     <main class="flex flex-col gap-y-10 items-center">
 
         <!-- qr code -->
-        <div class="w-72 h-72 bg-zinc-100 rounded"></div>
+        <div class="bg-zinc-100 rounded flex items-center justify-center">
+            <QrcodeVue :value="'https://justgotplayfulnrrich.ng'" :size="250" class="w-full h-full p-4"/>
+        </div>
         <!-- qr code -->
 
         <div class="flex flex-col gap-y-2 items-center justify-center">
