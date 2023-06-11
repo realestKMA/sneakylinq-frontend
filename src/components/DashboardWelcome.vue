@@ -14,7 +14,7 @@ const data = [
 
 
 <template>
-    <main class="w-10/12 mx-auto h-full bg-white flex flex-col gap-y-16 items-center justify-center selection:bg-black selection:text-white md:w-8/12 lg:w-10/12 2xl:w-8/12">
+    <main class="w-10/12 mx-auto h-full bg-white flex flex-col gap-y-16 items-center justify-center md:w-8/12 lg:w-10/12 2xl:w-8/12">
 
         <AppLogo class="text-5xl text-black" />
 

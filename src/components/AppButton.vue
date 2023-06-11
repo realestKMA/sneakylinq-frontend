@@ -1,10 +1,11 @@
 <script setup>
-
 const props = defineProps({
     label: {type: String, default: "Label"},
     type: {type: String, default: "button"},
     disabled: {type: Boolean, default: false}
 })
+
+const emit = defineEmits(['click'])
 </script>
 
 

@@ -29,7 +29,7 @@ const router = createRouter({
         {
           path: "chat",
           name: "dashboardchat",
-          component: () => import('../components/DashBoardChat.vue')
+          component: () => import('../components/DashBoardChat.vue'),
         },
       ]
     },
@@ -41,7 +41,7 @@ const router = createRouter({
     //   // which is lazy-loaded when the route is visited.
     //   component: () => import('../views/AboutView.vue')
     // }
-  ]
+  ],
 })
 
 export default router
