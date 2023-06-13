@@ -24,7 +24,8 @@ const data = [
             </span>
 
             <!-- start new chat button -->
-            <RouterLink :to="{name: 'newlinq'}" class="py-10 flex items-center justify-center gap-x-2 border-2 border-dashed border-zinc-200 rounded-sm duration-150 group overflow-hidden hover:border-zinc-800 hover:bg-zinc-800 hover:shadow-xl">
+            <RouterLink :to="{name: 'newlinq'}" class="py-10 flex items-center justify-center gap-x-2 border-2 border-dashed
+            border-zinc-200 rounded-sm duration-150 group overflow-hidden hover:border-zinc-800 hover:bg-black hover:shadow-xl">
                 <IconAddPlus class="w-5 h-5 text-zinc-500 duration-150 group-hover:text-white" />
                 <p class="text-zinc-500 font-medium text-sm duration-150 group-hover:text-white">New chat</p>
             </RouterLink>

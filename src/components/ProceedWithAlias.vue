@@ -39,16 +39,16 @@ const aliasIsValid = computed(() => {
         <!-- input checks -->
         <div class="flex flex-col gap-y-1">
             <span class="inline-flex gap-x-2 items-center" :class="aliasIsMinLen ? 'text-green-500' : 'text-zinc-400'">
-                <IconCheck class="w-5 h-5 duration-300" :stroke-width="3" />
+                <IconCheck class="w-5 h-5 duration-300" stroke-width="3" />
                 <p class="text-xs duration-300">Minimum of 4 characters</p>
             </span>
 
             <span class="inline-flex gap-x-2 items-center" :class="aliasIsMaxLen ? 'text-green-500' : 'text-zinc-400'">
-                <IconCheck class="w-5 h-5" :stroke-width="3" />
+                <IconCheck class="w-5 h-5" stroke-width="3" />
                 <p class="text-xs">Maximum of 15 characters</p>
             </span>
             <span class="inline-flex gap-x-2 items-center" :class="aliasIsAlphaNum ? 'text-green-500' : 'text-zinc-400'">
-                <IconCheck class="w-5 h-5" :stroke-width="3" />
+                <IconCheck class="w-5 h-5" stroke-width="3" />
                 <p class="text-xs">Alias can contain letters, numers and undescore but not numbers only.</p>
             </span>
         </div>
