@@ -58,7 +58,7 @@ onClickOutside(root, () => toggleMenu.value = false)
                 </span>
 
                 <span class="inline-flex flex-col w-full border-t border-zinc-700">
-                    <RouterLink :to="{name: 'auth'}" class="w-full flex items-center gap-x-3 p-4 text-zinc-400 duration-300 hover:text-white hover:bg-zinc-900 md:p-3">
+                    <RouterLink :to="{name: 'connect'}" class="w-full flex items-center gap-x-3 p-4 text-zinc-400 duration-300 hover:text-white hover:bg-zinc-900 md:p-3">
                         <IconLogOut class="w-5 h-5" />
                         <p class="text-lg md:text-base">Log out</p>
                     </RouterLink>

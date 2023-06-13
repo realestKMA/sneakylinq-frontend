@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AuthView from '../views/AuthView.vue'
+import ConnectView from '../views/ConnectView.vue'
+import ScanConnectView from '../views/ScanConnectView.vue'
 import DashBoardView from '../views/DashBoardView.vue'
 
 const router = createRouter({
@@ -7,14 +8,20 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'auth',
-      component: AuthView
+      name: 'connect',
+      component: ConnectView
+    },
+    {
+      path: '/connect/scan/:did',
+      name: 'scanconnect',
+      component: ScanConnectView,
+      props: true,
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      redirect: {name: "dashboardwelcome"},
       component: DashBoardView,
+      redirect: {name: "dashboardwelcome"},
       children: [
         {
           path: "",
@@ -32,6 +39,12 @@ const router = createRouter({
           component: () => import('../components/DashBoardChat.vue'),
         },
       ]
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../components/AppNotFound.vue'),
+      meta: {requiresAuth: false, transition: 100, transitionName: ""}
     },
     // {
     //   path: '/about',

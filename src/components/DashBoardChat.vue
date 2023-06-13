@@ -53,7 +53,7 @@ onMounted(() => {
             <!-- chats messages -->
             <div class="relative w-full flex-grow flex flex-col gap-y-4">
                 <!-- fade effect -->
-                <div class="sticky top-0 w-full h-40 bg-gradient-to-t from-transparent via-white/90 to-white md:h-20"></div>
+                <div class="sticky top-0 w-full h-60 bg-gradient-to-t from-transparent via-white/90 to-white md:h-20"></div>
                 <!-- fade effect -->
 
                 <p
