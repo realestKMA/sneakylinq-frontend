@@ -4,7 +4,7 @@ import SideNav from '../components/SideNav.vue';
 import IconBarLeft from '../components/icons/IconBarLeft.vue';
 import IconCloseSmall from '../components/icons/IconCloseSmall.vue';
 import IconHouseOne from '../components/icons/IconHouseOne.vue';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 const toggleMenu = ref(false)

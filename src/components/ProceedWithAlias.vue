@@ -2,11 +2,19 @@
 import AppInputField from './AppInputField.vue';
 import IconCheck from './icons/IconCheck.vue';
 import AppButton from './AppButton.vue';
-import { RouterLink } from 'vue-router';
 import { computed, ref } from 'vue';
+import { useScanQRcode } from '../stores/scanQRCode';
+
+// props
+const props = defineProps({
+    proceedType: {type: Number, default: 1}
+})
 
 // refs
 const alias = ref("")
+
+// stores
+const useScanQRcodeStore = useScanQRcode()
 
 // computed
 const aliasIsMinLen = computed(() => {
@@ -30,10 +38,10 @@ const aliasIsValid = computed(() => {
 </script>
 
 <template>
-    <main class="mx-auto flex flex-col gap-y-6 md:w-auto md:mx-0">
+    <form class="mx-auto flex flex-col gap-y-6 md:w-auto md:mx-0">
 
         <!-- input field -->
-        <AppInputField v-model:model-value="alias" label="Alias" v-model.lower="alias" />
+        <AppInputField v-model:model-value="alias" label="Alias (nickname)" v-model.lower="alias" />
         <!-- input field -->
 
         <!-- input checks -->
@@ -60,9 +68,20 @@ const aliasIsValid = computed(() => {
             changed within this period.
         </p>
 
-        <RouterLink :to="{ name: 'dashboard' }">
-            <AppButton label="Proceed with alias" type="button" :disabled="!aliasIsValid" />
-        </RouterLink>
+        <AppButton
+            :label="props.proceedType == 1 ? 'Linq up here': 'Linq up'"
+            type="button"
+            @click="useScanQRcodeStore.send({alias: alias})"
+            :disabled="!aliasIsValid || useScanQRcodeStore.alias.loading" />
 
-    </main>
+        <!-- errors -->
+        <ul v-if="useScanQRcodeStore.alias.error" class="w-full border-t border-zinc-100 text-xs text-red-500 py-5 list-disc list-inside md:text-sm">
+            <li>
+                {{ useScanQRcodeStore.alias.error }}
+            </li>
+        </ul>
+        <!-- errors -->
+
+
+    </form>
 </template>

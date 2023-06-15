@@ -22,6 +22,7 @@ const router = createRouter({
       name: 'dashboard',
       component: DashBoardView,
       redirect: {name: "dashboardwelcome"},
+      meta: {requiresAuth: true},
       children: [
         {
           path: "",
