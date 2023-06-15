@@ -1,5 +1,4 @@
 <script setup>
-import AppButton from './AppButton.vue';
 import AppChatTextField from './AppChatTextField.vue';
 import IconPaperPlane from './icons/IconPaperPlane.vue';
 import { ref, computed, onMounted } from 'vue';

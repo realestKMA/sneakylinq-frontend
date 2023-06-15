@@ -1,12 +1,9 @@
 <script setup>
-import { useRoute } from 'vue-router';
 import AppLogo from '../components/AppLogo.vue';
-import ProceedWithAlias from '../components/ProceedWithAlias.vue'
-import { onMounted, ref } from 'vue';
-import { useProceedWithQRCode } from '../stores/ProceedWithQRCode';
-
-// refs
-const loading = ref(false)
+import ProceedWithAlias from '../components/ProceedWithAlias.vue';
+import { onMounted } from 'vue';
+import { useScanQRcode } from '../stores/scanQRCode';
+import IconQRCode from '../components/icons/IconQRCode.vue';
 
 // props
 const props = defineProps({
@@ -14,30 +11,39 @@ const props = defineProps({
 })
 
 // stores
-const useProceedWithQRCodeStore = useProceedWithQRCode()
-
-// route and router
-const route = useRoute()
+const useScanQRcodeStore = useScanQRcode()
 
 // mounted hook
 onMounted(() => {
+    useScanQRcodeStore.connect(props.did)
 })
 </script>
 
 <template>
     <main class="w-full h-full bg-white flex flex-col items-center justify-center">
-
+        
         <section class="w-full h-full flex flex-grow items-center justify-center overflow-hidden md:gap-x-10 lg:gap-x-20">
 
             <!-- loading effect -->
-            <div v-if="loading" class="w-full h-full flex items-center justify-center">
-                <AppLogo :class="loading ? 'animate-ping':''" class="text-4xl" />
+            <div v-if="useScanQRcodeStore.scanner.loading" class="w-full h-full flex items-center justify-center">
+                <AppLogo :class="useScanQRcodeStore.scanner.loading ? 'animate-ping':''" class="text-4xl" />
             </div>
             <!-- loading effect -->
 
             <!-- proceed with alias -->
-            <div v-else class="w-10/12 md:w-5/12 lg:w-4/12 xl:w-3/12">
-                <ProceedWithAlias class="w-full md:w-auto" />
+            <div v-else class="w-10/12 h-full flex flex-col justify-between items-center md:w-5/12 lg:w-4/12 xl:w-3/12">
+                <div class="mt-20">
+                    <IconQRCode class="w-40 h-40 text-black" />
+                </div>
+
+                <div v-if="useScanQRcodeStore.scanner.completed" class="flex-grow flex items-center justify-center -mt-40">
+                    <p class="text-base text-zinc-500 text-center">Linq up completed successfully, you should now be logged in on the other device</p>
+                </div>
+
+
+                <div v-else class="flex-grow flex items-center justify-center -mt-40">
+                    <ProceedWithAlias proceed-type="2" class="w-full md:w-auto" />
+                </div>
             </div>
             <!-- proceed with alias -->
 
