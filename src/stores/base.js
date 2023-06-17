@@ -16,9 +16,6 @@ export const useBase = defineStore("base", () => {
     const device = useLocalStorage("device", {})
     const scannedDevice = useLocalStorage("scanned-device", {})
 
-    // refs
-    const disconnect = ref(false)
-
     // events
     const deviceEventTypes = {
         DEVICE_CONNECT: "device.connect",
@@ -38,11 +35,13 @@ export const useBase = defineStore("base", () => {
         CHAT_CONNECT: "chat.connect",
     }
 
+    // data
+    const leftMobileMenu = ref(false)
 
 
     return { 
         baseUrl, baseWSUrl, did, device, scannedDevice,
         deviceEventTypes, scanEventTypes, chatEventTypes,
-        disconnect
+        leftMobileMenu
     }
 })

@@ -4,10 +4,11 @@ import SideNav from '../components/SideNav.vue';
 import IconBarLeft from '../components/icons/IconBarLeft.vue';
 import IconCloseSmall from '../components/icons/IconCloseSmall.vue';
 import IconHouseOne from '../components/icons/IconHouseOne.vue';
-import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useBase } from '../stores/base';
 
-const toggleMenu = ref(false)
+// stores
+const useBaseStore = useBase()
 </script>
 
 <template>
@@ -17,7 +18,7 @@ const toggleMenu = ref(false)
         <div class="fixed top-0 w-full z-20 flex items-center justify-between px-8 py-6 md:hidden">
 
             <!-- toggle sidenav open, only available on small screens -->
-            <button type="button" @click="toggleMenu = true"
+            <button type="button" @click="useBaseStore.leftMobileMenu = true"
                 class="block bg-transparent border border-zinc-200 rounded p-1 duration-300 group hover:bg-black">
                 <IconBarLeft class="w-7 h-7 text-zinc-800 duration-300 group-hover:text-white" />
             </button>
@@ -27,7 +28,6 @@ const toggleMenu = ref(false)
             <RouterLink
                 :to="{ name: 'dashboardwelcome' }"
                 v-slot="{ isExactActive }"
-                :class="isExactActive ? 'text-white':'text-zinc-800'"
                 class="block bg-transparent group">
                     <span
                         :class="isExactActive ? 'bg-black':'bg-transparent'"
@@ -69,14 +69,14 @@ const toggleMenu = ref(false)
             <!-- side nav mobile -->
             <Transition enter-from-class="opacity-0 -translate-x-16" enter-active-class="duration-300"
                 leave-to-class="opacity-0 -translate-x-16" leave-active-class="duration-300">
-                <div v-if="toggleMenu" class="absolute top-0 w-full flex z-50 md:hidden">
+                <div v-if="useBaseStore.leftMobileMenu" class="absolute top-0 w-full flex z-50 md:hidden">
                     <div class="w-9/12">
                         <SideNav />
                     </div>
 
                     <!-- close side nav button -->
-                    <div class="w-3/12 bg-black/20 backdrop-blur" @click="toggleMenu = false">
-                        <button type="button" @click="toggleMenu = false"
+                    <div class="w-3/12 bg-black/20 backdrop-blur" @click="useBaseStore.leftMobileMenu = false">
+                        <button type="button" @click="useBaseStore.leftMobileMenu = false"
                             class="bg-transparent rounded p-1 duration-300 group mt-5 ml-5">
                             <IconCloseSmall class="w-10 h-10 text-zinc-800 duration-150 group-hover:text-white" />
                         </button>

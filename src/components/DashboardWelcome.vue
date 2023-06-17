@@ -1,10 +1,14 @@
 <script setup>
+import { useBase } from '../stores/base';
 import AppLogo from './AppLogo.vue';
 import IconAddPlus from './icons/IconAddPlus.vue';
 import { RouterLink } from 'vue-router';
 
+// stores
+const useBaseStore = useBase()
+
 const data = [
-    {id: 1, value: "alias.linq has been assigned to this device for a period of 4 hours."},
+    {id: 1, value: `${useBaseStore.device?.data?.alias} has been assigned to this device for a period of 4 hours.`},
     {id: 2, value: "Chat securely with anyone from anywhere at anytime"},
     {id: 3, value: "Messages are never saved, just transmitted"},
     {id: 4, value: "Share your alias with others so they can sneaky chat you without knowing who you are"},

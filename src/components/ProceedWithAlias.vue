@@ -4,6 +4,7 @@ import IconCheck from './icons/IconCheck.vue';
 import AppButton from './AppButton.vue';
 import { computed, ref } from 'vue';
 import { useScanQRcode } from '../stores/scanQRCode';
+import { useConnect } from '../stores/connect';
 
 // props
 const props = defineProps({
@@ -15,6 +16,7 @@ const alias = ref("")
 
 // stores
 const useScanQRcodeStore = useScanQRcode()
+const useConnectStore = useConnect()
 
 // computed
 const aliasIsMinLen = computed(() => {
@@ -38,10 +40,10 @@ const aliasIsValid = computed(() => {
 </script>
 
 <template>
-    <form class="mx-auto flex flex-col gap-y-6 md:w-auto md:mx-0">
+    <form @submit.prevent class="mx-auto flex flex-col gap-y-6 md:w-auto md:mx-0">
 
         <!-- input field -->
-        <AppInputField v-model:model-value="alias" label="Alias (nickname)" v-model.lower="alias" />
+        <AppInputField v-model:model-value="alias" label="Alias (nickname)" v-model.lower="alias" max="15" />
         <!-- input field -->
 
         <!-- input checks -->
@@ -70,14 +72,15 @@ const aliasIsValid = computed(() => {
 
         <AppButton
             :label="props.proceedType == 1 ? 'Linq up here': 'Linq up'"
-            type="button"
-            @click="useScanQRcodeStore.send({alias: alias})"
-            :disabled="!aliasIsValid || useScanQRcodeStore.alias.loading" />
+            type="submit"
+            @click="props.proceedType == 1 ? useConnectStore.send({alias: alias}) : useScanQRcodeStore.send({alias: alias})"
+            :loading="useScanQRcodeStore.alias.loading || useConnectStore.alias.loading"
+            :disabled="!aliasIsValid || useScanQRcodeStore.alias.loading || useConnectStore.alias.loading" />
 
         <!-- errors -->
-        <ul v-if="useScanQRcodeStore.alias.error" class="w-full border-t border-zinc-100 text-xs text-red-500 py-5 list-disc list-inside md:text-sm">
+        <ul v-if="useScanQRcodeStore.alias.error || useConnectStore.alias.error" class="w-full border-t border-zinc-100 text-xs text-red-500 py-5 list-disc list-inside md:text-sm">
             <li>
-                {{ useScanQRcodeStore.alias.error }}
+                {{ useScanQRcodeStore.alias.error || useConnectStore.alias.error }}
             </li>
         </ul>
         <!-- errors -->

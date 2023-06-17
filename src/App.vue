@@ -2,15 +2,17 @@
 import { RouterView } from 'vue-router'
 import { v4 as uuid4 } from 'uuid'
 import { useBase } from './stores/base'
-import { useSetup } from './stores/setup.js';
+import { useConnect } from './stores/connect.js';
 import AppLogo from './components/AppLogo.vue';
 import IconLogOut from './components/icons/IconLogOut.vue';
 import AppButton from './components/AppButton.vue';
 import AppModalState from './components/AppModalState.vue';
+import { useDisconnect } from './stores/disconnect';
 
 // stores
 const useBaseStore = useBase()
-const useSetupStore = useSetup()
+const useConnectStore = useConnect()
+const useDisconnectStore = useDisconnect()
 
 // methods
 const setDeviceID = () => {
@@ -35,8 +37,8 @@ setDeviceID()
         enter-active-class="transition-all duration-200"
         leave-to-class="scale-0 opacity-0"
         leave-active-class="transition-all duration-200">
-        <div v-if="useSetupStore.qrcode.success" class="fixed top-0 w-full h-screen bg-black/20 backdrop-blur flex items-center justify-center z-30">
-          <AppLogo :class="useSetupStore.qrcode.success ? 'animate-ping':''" class="text-4xl" />
+        <div v-if="useConnectStore.qrcode.success" class="fixed top-0 w-full h-screen bg-black/20 backdrop-blur flex items-center justify-center z-30">
+          <AppLogo :class="useConnectStore.qrcode.success ? 'animate-ping':''" class="text-4xl" />
         </div>
     </Transition>
   </Teleport>
@@ -49,7 +51,7 @@ setDeviceID()
         enter-active-class="transition-all duration-200"
         leave-to-class="scale-0 opacity-0"
         leave-active-class="transition-all duration-200">
-        <div v-if="useBaseStore.disconnect"
+        <div v-if="useDisconnectStore.disconnect.open"
           class="w-full h-screen flex items-center justify-center fixed top-0 bg-black-500/20 backdrop-blur z-30">
 
           <AppModalState>
@@ -67,10 +69,18 @@ setDeviceID()
             </template>
 
             <template #actions>
-              <AppButton @click.prevent="useBaseStore.disconnect = false" type="button" label="Cancle"
-                class="text-gray-900 hover:bg-white" />
-              <AppButton @click.prevent="useBaseStore.disconnect = false" type="button" label="Yes, linq out"
-                class="text-white bg-red-500 hover:bg-red-600" />
+              <AppButton
+                @click.prevent="useDisconnectStore.disconnect.open = false"
+                type="button"
+                label="Cancle"
+                :disabled="useDisconnectStore.disconnect.loading" />
+                
+              <AppButton
+                @click.prevent="useDisconnectStore.connectToDisconnect()"
+                type="button"
+                label="Yes, linq out"
+                :loading="useDisconnectStore.disconnect.loading" />
+
             </template>
 
           </AppModalState>

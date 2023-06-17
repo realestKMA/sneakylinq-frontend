@@ -2,6 +2,7 @@
 import AppLogo from '../components/AppLogo.vue';
 import ProceedWithQRCode from '../components/ProceedWithQRCode.vue'
 import ProceedWithAlias from '../components/ProceedWithAlias.vue'
+import { RouterLink } from 'vue-router';
 </script>
 
 <template>
@@ -33,7 +34,11 @@ import ProceedWithAlias from '../components/ProceedWithAlias.vue'
 
     <!-- home footer -->
     <footer class="w-full flex flex-col items-center justify-center p-4 gap-y-2">
-      <AppLogo class="text-2xl" />
+      
+      <RouterLink :to="{name: 'home'}">
+        <AppLogo class="text-2xl" />
+      </RouterLink>
+
       <span class="inline-flex gap-x-1 text-xs text-zinc-500">
         <p>By the</p>
         <a href="http://github.com/realestkma" class="text-cyan-400 hover:text-cyan-500">RealestKMA</a>

@@ -36,10 +36,17 @@ onMounted(() => {
                     <IconQRCode class="w-40 h-40 text-black" />
                 </div>
 
+                <!-- linq up completed -->
                 <div v-if="useScanQRcodeStore.scanner.completed" class="flex-grow flex items-center justify-center -mt-40">
                     <p class="text-base text-zinc-500 text-center">Linq up completed successfully, you should now be logged in on the other device</p>
                 </div>
+                <!-- linq up completed -->
 
+                <!-- linq up error -->
+                <div v-else-if="useScanQRcodeStore.scanner.error" class="flex-grow flex items-center justify-center -mt-40">
+                    <p class="text-base text-zinc-500 text-center">{{ useScanQRcodeStore.scanner.error }}</p>
+                </div>
+                <!-- linq up error -->
 
                 <div v-else class="flex-grow flex items-center justify-center -mt-40">
                     <ProceedWithAlias proceed-type="2" class="w-full md:w-auto" />
@@ -48,6 +55,7 @@ onMounted(() => {
             <!-- proceed with alias -->
 
         </section>
+        
 
         <!-- home footer -->
         <footer class="w-full flex flex-col items-center justify-center p-4 gap-y-2">
@@ -62,6 +70,7 @@ onMounted(() => {
             </span>
         </footer>
         <!-- home footer -->
+
 
     </main>
 </template>
