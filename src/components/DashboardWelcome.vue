@@ -11,7 +11,7 @@ const data = [
     {id: 1, value: `${useBaseStore.device?.data?.alias} has been assigned to this device for a period of 4 hours.`},
     {id: 2, value: "Chat securely with anyone from anywhere at anytime"},
     {id: 3, value: "Messages are never saved, just transmitted"},
-    {id: 4, value: "Share your alias with others so they can sneaky chat you without knowing who you are"},
+    {id: 4, value: "Share your alias with others so they can linq up with you."},
     {id: 5, value: "Group chat coming soon :)"},
 ]
 </script>
