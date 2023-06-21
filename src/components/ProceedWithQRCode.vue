@@ -30,7 +30,7 @@ onMounted(() => {
 
             <!-- error or refresh effect -->
             <div v-if="useConnectStore.qrcode.error || useConnectStore.qrcode.expired" class="absolute top-0 w-full h-full bg-zinc-100/50 backdrop-blur-sm flex flex-col gap-y-2 items-center justify-center">
-                <AppButton label="Refresh" class="w-1/2" />
+                <AppButton label="Refresh" @click="useConnectStore.connect()" class="w-1/2" />
                 <p v-if="useConnectStore.qrcode.error" class="text-xs text-black text-center">An error occured.</p>
             </div>
             <!-- error or refresh effect -->

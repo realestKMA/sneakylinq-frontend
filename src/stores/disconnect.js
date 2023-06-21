@@ -2,11 +2,13 @@ import { defineStore } from 'pinia'
 import { useBase } from './base'
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { useChatP2P } from './chatp2p'
 
 export const useDisconnect = defineStore('disconnect', () => {
 
   // stores
   const useBaseStore = useBase()
+  const useChatP2PStore = useChatP2P()
 
   // route and router
   const router = useRouter()

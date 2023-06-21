@@ -95,10 +95,10 @@ setDeviceID()
           </template>
 
           <template #actions>
-            <AppButton @click.prevent="useDisconnectStore.disconnect.open = false" type="button" label="Cancle"
+            <AppButton @click="useDisconnectStore.disconnect.open = false" type="button" label="Cancle"
               :disabled="useDisconnectStore.disconnect.loading" />
 
-            <AppButton @click.prevent="useDisconnectStore.connectToDisconnect()" type="button" label="Yes, linq out"
+            <AppButton @click="useDisconnectStore.connectToDisconnect()" type="button" label="Yes, linq out"
               :loading="useDisconnectStore.disconnect.loading" />
 
           </template>

@@ -44,8 +44,6 @@ export const useChatP2P = defineStore("chatp2p", () => {
                 // device data refreshed
                 if (data?.event == useBaseStore.chatEventTypes.CHAT_CONNECT) {
                     useBaseStore.device = data
-
-                    console.log("CHAT: Message")
                 }
 
                 // new chat message
@@ -84,13 +82,11 @@ export const useChatP2P = defineStore("chatp2p", () => {
         ws.onclose = () => {
             chatConnect.connecting = chatConnect.connected = false
             chatConnect.error = null
-            console.log("CLOSE: ONCLOSE")
         }
 
         ws.onerror = () => {
             chatConnect.connecting = chatConnect.connected = false
             chatConnect.error = null
-            console.log("CLOSE: ONERROR")
         }
     }
 

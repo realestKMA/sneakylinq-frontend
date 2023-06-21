@@ -1,5 +1,6 @@
 <script setup>
 import { useBase } from '../stores/base';
+import { useChatP2P } from '../stores/chatp2p';
 import ChatAlias from './ChatAlias.vue';
 import DeviceAlias from './DeviceAlias.vue';
 import IconAddPlus from './icons/IconAddPlus.vue';
@@ -7,6 +8,7 @@ import { RouterLink } from 'vue-router';
 
 // stores
 const useBaseStore = useBase()
+const useChatP2PStore = useChatP2P()
 
 // data
 const aliases = [
@@ -29,9 +31,13 @@ const aliases = [
         <div class="flex flex-col p-4">
 
             <!-- new chat -->
-            <RouterLink :to="{name: 'newlinq'}" @click="useBaseStore.leftMobileMenu = false" class="flex items-center gap-x-2 text-zinc-400 bg-transparent p-3 rounded-sm duration-150 hover:bg-zinc-800 hover:text-white md:p-2">
-                <IconAddPlus class="w-5 h-5" />
-                <p class="text-base md:text-lg">New chat</p>
+            <RouterLink
+                :to="{name: 'newlinq'}"
+                @click="useBaseStore.leftMobileMenu = false"
+                v-if="useChatP2PStore.chatConnect.connected"
+                class="flex items-center gap-x-2 text-zinc-400 bg-transparent p-3 rounded-sm duration-150 hover:bg-zinc-800 hover:text-white md:p-2">
+                    <IconAddPlus class="w-5 h-5" />
+                    <p class="text-base md:text-lg">New chat</p>
             </RouterLink>
             <!-- new chat -->
 

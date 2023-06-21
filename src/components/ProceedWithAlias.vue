@@ -46,6 +46,13 @@ const aliasIsValid = computed(() => {
         <AppInputField v-model:model-value="alias" label="Alias (nickname)" v-model.lower="alias" max="15" />
         <!-- input field -->
 
+
+        <p class="text-xs text-zinc-600 md:text-sm">
+            This alias is used to uniquely identify you on this space.
+            It is assigned to you for a duration of 4 hours and can be
+            changed within this period.
+        </p>
+
         <!-- input checks -->
         <div class="flex flex-col gap-y-1">
             <span class="inline-flex gap-x-2 items-center" :class="aliasIsMinLen ? 'text-green-500' : 'text-zinc-400'">
@@ -63,12 +70,6 @@ const aliasIsValid = computed(() => {
             </span>
         </div>
         <!-- input checks -->
-
-        <p class="text-xs text-zinc-600 md:text-sm">
-            This alias is used to uniquely identify you on this space.
-            It is assigned to you for a duration of 4 hours and can be
-            changed within this period.
-        </p>
 
         <AppButton
             :label="props.proceedType == 1 ? 'Linq up here': 'Linq up'"

@@ -34,9 +34,14 @@ export const useConnect = defineStore('connect', () => {
 
     // actions
     function connect() {
-        qrcode.error = alias.error = null
-        qrcode.scanned = qrcode.success = alias.success = alias.loading = false
         qrcode.loading = true
+        qrcode.error = alias.error = null
+        qrcode.scanned = qrcode.success = qrcode.expired = alias.success = alias.loading = false
+
+        // set expire to true after 5 minutes
+        setTimeout(() => {
+            qrcode.expired = true
+        }, 60000);
 
         ws = new WebSocket(`${useBaseStore.baseWSUrl}/ws/connect/`, [useBaseStore.did])
 
@@ -50,7 +55,7 @@ export const useConnect = defineStore('connect', () => {
                     useBaseStore.device = data
 
                     qrcode.error = null
-                    qrcode.loading = qrcode.scanned = false
+                    qrcode.loading = qrcode.scanned = qrcode.expired = false
                     qrcode.success = true
 
                     // delay then navigate to user dashboard
@@ -67,13 +72,13 @@ export const useConnect = defineStore('connect', () => {
 
                     qrcode.value = `${useBaseStore.baseUrl}/connect/scan/${useBaseStore.did}/`
                     qrcode.error = null
-                    qrcode.loading = qrcode.scanned = false
+                    qrcode.loading = qrcode.scanned = qrcode.expired = false
                 }
 
                 // device scanned successfully
                 else if (data?.event == useBaseStore.scanEventTypes.SCAN_CONNECT) {
                     qrcode.error = null
-                    qrcode.loading = false
+                    qrcode.loading = qrcode.expired = false
                     qrcode.scanned = true
 
                     setTimeout(() => {
@@ -86,7 +91,7 @@ export const useConnect = defineStore('connect', () => {
                     useBaseStore.device = data
 
                     qrcode.error = null
-                    qrcode.loading = qrcode.scanned = false
+                    qrcode.loading = qrcode.scanned = qrcode.expired = false
                     qrcode.success = true
 
                     // delay then navigate to user dashboard

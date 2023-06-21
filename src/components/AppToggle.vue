@@ -39,13 +39,5 @@ const emit = defineEmits(['click'])
 
         </div>
 
-        <!-- <input
-            type="checkbox"
-            :name="props.label"
-            :id="props.label"
-            :checked="props.modelValue"
-            @change="$emit('update:modelValue', $event.target.checked)"
-            class="hidden" /> -->
-
     </main>
 </template>

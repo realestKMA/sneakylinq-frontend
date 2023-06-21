@@ -20,8 +20,8 @@ const emit = defineEmits(["update:modelValue"])
             :value="props.modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             class="w-full text-sm text-zinc-500 bg-white resize-none rounded-md ring-1 ring-zinc-200 ring-offset-2 shadow-lg
-            p-3 duration-300 placeholder:text-zinc-300 md:text-lg hover:ring-2 hover:shadow-cyan-200
-            focus:outline-none focus:shadow-cyan-300 focus:ring-2">
+            p-3 duration-300 placeholder:text-zinc-300 md:text-lg hover:ring-2 hover:shadow-zinc-200
+            focus:outline-none focus:shadow-zinc-400 focus:ring-2 focus:ring-black">
         </textarea>
 
     </main>
