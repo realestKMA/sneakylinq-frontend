@@ -75,6 +75,7 @@ const aliasIsValid = computed(() => {
             :label="props.proceedType == 1 ? 'Linq up here': 'Linq up'"
             type="submit"
             @click="props.proceedType == 1 ? useConnectStore.send({alias: alias}) : useScanQRcodeStore.send({alias: alias})"
+            loading-text="Linqing..."
             :loading="useScanQRcodeStore.alias.loading || useConnectStore.alias.loading"
             :disabled="!aliasIsValid || useScanQRcodeStore.alias.loading || useConnectStore.alias.loading" />
 

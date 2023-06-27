@@ -41,7 +41,7 @@ const data = [
             <span v-else
                 class="py-10 flex items-center justify-center gap-x-2 border-2 border-dashed
                 border-zinc-200 rounded-sm duration-150 group overflow-hidden hover:border-zinc-800 hover:bg-black hover:shadow-xl">
-                <p class="text-zinc-500 font-medium text-sm text-center duration-150 group-hover:text-white">Tap the offline span at the top right to go online</p>
+                <p class="text-zinc-500 font-medium text-sm text-center duration-150 group-hover:text-white">Tap the offline button at the top right to go online</p>
             </span>
             <!-- start new chat button -->
         </div>

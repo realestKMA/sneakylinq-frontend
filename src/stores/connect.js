@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { reactive } from "vue";
 import { useBase } from "./base";
 import { useRouter } from "vue-router";
+import { useNotify } from "./notify";
 
 
 export const useConnect = defineStore('connect', () => {
@@ -26,7 +27,8 @@ export const useConnect = defineStore('connect', () => {
     const alias = reactive({
         loading: false,
         error: null,
-        success: false
+        success: false,
+        connected: false,
     })
 
     // websocket
@@ -36,9 +38,10 @@ export const useConnect = defineStore('connect', () => {
     function connect() {
         qrcode.loading = true
         qrcode.error = alias.error = null
-        qrcode.scanned = qrcode.success = qrcode.expired = alias.success = alias.loading = false
+        qrcode.scanned = qrcode.success = qrcode.expired = false
+        alias.success = alias.loading = alias.connected = false
 
-        // set expire to true after 5 minutes
+        // set expire to true after 60 seconds
         setTimeout(() => {
             qrcode.expired = true
         }, 60000);
@@ -49,9 +52,10 @@ export const useConnect = defineStore('connect', () => {
             const data = JSON.parse(e.data)
 
             if (data?.status) {
+                alias.connected = true
 
                 // device connected and alias already set
-                if (data?.event == useBaseStore.deviceEventTypes.DEVICE_CONNECT && 'alias' in data['data']) {
+                if ((data?.event == useBaseStore.deviceEventTypes.DEVICE_CONNECT) && ('alias' in data['data'])) {
                     useBaseStore.device = data
 
                     qrcode.error = null
@@ -123,10 +127,17 @@ export const useConnect = defineStore('connect', () => {
                     qrcode.error = data['message']
                 }
                 else if (data?.event == useBaseStore.deviceEventTypes.DEVICE_SETUP) {
-                    alias.loading = false
+                    alias.loading = alias.connected =false
                     alias.error = data['message']
                 }
             }
+        }
+
+        ws.onerror = () => {
+            qrcode.scanned = qrcode.success = qrcode.expired = qrcode.loading = false
+            alias.success = alias.loading = alias.connected = false
+            alias.error = null
+            qrcode.error = true
         }
     }
 

@@ -2,6 +2,8 @@ import { defineStore } from "pinia"
 import { reactive } from "vue";
 import { useNotify } from "./notify";
 import { useBase } from "./base";
+import { useRouter } from "vue-router";
+import { useStorage } from "@vueuse/core";
 
 
 export const useChatP2P = defineStore("chatp2p", () => {
@@ -10,6 +12,9 @@ export const useChatP2P = defineStore("chatp2p", () => {
     const useBaseStore = useBase()
     const useNotifyStore = useNotify()
 
+    // router & route
+    const router = useRouter()
+
     // data
     const chatConnect = reactive({
         connecting: false,
@@ -17,11 +22,33 @@ export const useChatP2P = defineStore("chatp2p", () => {
         error: null
     })
 
-    const chatMessage = reactive({
+    const chatNewLinq = reactive({
         sending: false,
-        sent: false,
         error: null
     })
+
+    const chatMessages = reactive([
+        { did: 1, alias: "user_one.linq" },
+        { did: 2, alias: "user_two.linq" },
+        { did: 3, alias: "user_three.linq" },
+        { did: 4, alias: "user_four.linq" },
+        { did: 5, alias: "user_five.linq" },
+    ])
+
+    const activeChat = useStorage('active-chat', {})
+
+
+    // chat message delete function
+    function deleteChat(did) {
+        chatMessages.splice(
+            chatMessages.indexOf(chatMessages.find(
+                (chat) => chat.did == did
+            )
+            ), 1)
+
+        router.push({ name: 'dashboard' })
+    }
+
 
     // websocket instance not initialized
     let ws;
@@ -44,11 +71,20 @@ export const useChatP2P = defineStore("chatp2p", () => {
                 // device data refreshed
                 if (data?.event == useBaseStore.chatEventTypes.CHAT_CONNECT) {
                     useBaseStore.device = data
+
+                    // pop notification
+                    useNotifyStore.showNotify(
+                        "Chat is now online",
+                        null,
+                        "bad",
+                        5000
+                    )
                 }
 
                 // new chat message
                 else if (data?.event == useBaseStore.chatEventTypes.CHAT_MESSAGE) {
                     console.log("CHAT: New message")
+                    // newMessage(data?.data)
                 }
             }
 
@@ -60,19 +96,20 @@ export const useChatP2P = defineStore("chatp2p", () => {
                     useNotifyStore.showNotify(
                         data?.message,
                         null,
-                        "good",
+                        "bad",
                         5000
                     )
                 }
 
                 else if (data?.event == useBaseStore.chatEventTypes.CHAT_MESSAGE) {
-                    chatMessage.sending = chatMessage.sent = false
+                    chatNewLinq.sending = false
+                    chatNewLinq.error = data?.message
 
                     // pop notification
                     useNotifyStore.showNotify(
                         data?.message,
                         null,
-                        "good",
+                        "bad",
                         5000
                     )
                 }
@@ -87,11 +124,22 @@ export const useChatP2P = defineStore("chatp2p", () => {
         ws.onerror = () => {
             chatConnect.connecting = chatConnect.connected = false
             chatConnect.error = null
+
+            // pop notification
+            useNotifyStore.showNotify(
+                'An error occured',
+                null,
+                "bad",
+                5000
+            )
         }
     }
 
     // send chat messages
     function send(data) {
+        chatNewLinq.sending = true
+        chatNewLinq.error = null
+
         ws.send(JSON.stringify(data))
     }
 
@@ -102,9 +150,12 @@ export const useChatP2P = defineStore("chatp2p", () => {
 
         chatConnect.connecting = chatConnect.connected = false
         chatConnect.error = null
-
     }
 
 
-    return { chatConnect, chatMessage, connect, send, disconnect }
+    return {
+        chatConnect, chatNewLinq, chatMessages,
+        activeChat,
+        connect, send, disconnect, deleteChat
+    }
 })

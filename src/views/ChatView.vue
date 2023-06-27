@@ -11,6 +11,7 @@ import IconWifiHigh from '../components/icons/IconWifiHigh.vue';
 import IconWifiOff from '../components/icons/IconWifiOff.vue';
 import DeviceChatStatusLoading from '../components/DeviceChatStatusLoading.vue';
 import { useChatP2P } from '../stores/chatp2p';
+import DashBoardChat from '../components/DashBoardChat.vue';
 
 // stores
 const useBaseStore = useBase()
@@ -27,7 +28,8 @@ const toggleStatus = () => {
     <main class="relative w-full h-full font-roboto">
 
         <!-- home link/button, large screens -->
-        <div class="fixed w-full flex top-0 right-0 items-center justify-between px-8 py-6 z-10 md:w-8/12 lg:w-9/12 2xl:w-10/12">
+        <div
+            class="fixed w-full flex top-0 right-0 items-center justify-between px-8 py-6 z-10 md:w-8/12 lg:w-9/12 2xl:w-10/12">
 
             <!-- toggle sidenav, only available on small screens -->
             <button type="button" @click="useBaseStore.leftMobileMenu = true"
@@ -39,19 +41,23 @@ const toggleStatus = () => {
 
             <div class="flex items-center gap-x-4 md:justify-end md:flex-1">
                 <!-- toggle user online/offline status -->
-                <AppToggle :enabled="useChatP2PStore.chatConnect.connected" @click="toggleStatus()" :disabled="useChatP2PStore.chatConnect.connecting">
+                <AppToggle :enabled="useChatP2PStore.chatConnect.connected" @click="toggleStatus()"
+                    :disabled="useChatP2PStore.chatConnect.connecting">
                     <template #text>
                         <p :class="useChatP2PStore.chatConnect.connected ? 'text-white' : 'text-zinc-400'"
                             class="duration-1000">{{ useChatP2PStore.chatConnect.connected ? 'Online' : 'Offline' }}</p>
                     </template>
                     <template #icon>
-                        <DeviceChatStatusLoading v-if="useChatP2PStore.chatConnect.connecting" :loading="useChatP2PStore.chatConnect.connecting" />
+                        <DeviceChatStatusLoading v-if="useChatP2PStore.chatConnect.connecting"
+                            :loading="useChatP2PStore.chatConnect.connecting" />
                         <IconWifiHigh v-else-if="useChatP2PStore.chatConnect.connected"
                             :class="useChatP2PStore.chatConnect.connected ? 'text-black' : 'text-zinc-300'"
                             class="w-6 h-6 duration-1000" />
-                        <IconWifiOff v-else-if="!useChatP2PStore.chatConnect.connecting && !useChatP2PStore.chatConnect.connected" class="w-6 h-6 text-zinc-300" />
+                        <IconWifiOff
+                            v-else-if="!useChatP2PStore.chatConnect.connecting && !useChatP2PStore.chatConnect.connected"
+                            class="w-6 h-6 text-zinc-300" />
                     </template>
-                </AppToggle>            
+                </AppToggle>
                 <!-- toggle user online/offline status -->
 
                 <RouterLink :to="{ name: 'dashboardwelcome' }" v-slot="{ isExactActive }" class="group">
@@ -96,9 +102,10 @@ const toggleStatus = () => {
             <!-- side nav mobile -->
 
             <div class="w-full md:w-8/12 lg:w-9/12 2xl:w-10/12">
-                <RouterView />
+                <DashBoardChat />
             </div>
 
-        </div>
+    </div>
 
-    </main></template>
+</main>
+</template>

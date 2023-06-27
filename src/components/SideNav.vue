@@ -4,20 +4,21 @@ import { useChatP2P } from '../stores/chatp2p';
 import ChatAlias from './ChatAlias.vue';
 import DeviceAlias from './DeviceAlias.vue';
 import IconAddPlus from './icons/IconAddPlus.vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 // stores
 const useBaseStore = useBase()
 const useChatP2PStore = useChatP2P()
 
-// data
-const aliases = [
-    {id: 0, alias: "yo_swerve.linq"},
-    {id: 1, alias: "cinccinatinnnnn.linq"},
-    {id: 2, alias: "pusha_t.linq"},
-    {id: 3, alias: "codename.linq"},
-    {id: 4, alias: "bangerly.linq"},
-]
+// router & route
+const router = useRouter()
+
+// methods
+const linqWith = (chat) => {
+    useBaseStore.leftMobileMenu = false
+    useChatP2PStore.activeChat = chat
+    router.push({name: 'chat', params: {did: chat.did}})
+}
 </script>
 
 
@@ -28,7 +29,7 @@ const aliases = [
         <DeviceAlias />
         <!-- device alias -->
 
-        <div class="flex flex-col p-4">
+        <div class="flex flex-col p-4 gap-y-1">
 
             <!-- new chat -->
             <RouterLink
@@ -42,10 +43,12 @@ const aliases = [
             <!-- new chat -->
 
             <ChatAlias
-                v-for="chat in aliases"
+                v-for="chat in useChatP2PStore.chatMessages"
                 :alias="chat.alias"
-                :key="chat.id"
-                @click="useBaseStore.leftMobileMenu = false" />
+                :did="chat.did"
+                :key="chat.did"
+                @clicked-main="linqWith(chat)"
+                @clicked-delete="useChatP2PStore.deleteChat(chat.did), useBaseStore.leftMobileMenu = false"/>
         </div>
 
     </main>

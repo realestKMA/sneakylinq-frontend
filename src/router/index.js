@@ -47,8 +47,9 @@ const router = createRouter({
           meta: { requiresAuth: true, title: "New linq | Sneaky Linq" }
         },
         {
-          path: "chat",
-          name: "dashboardchat",
+          path: "/chat/:did",
+          name: "chat",
+          props: true,
           component: () => import('../components/DashBoardChat.vue'),
           meta: { requiresAuth: true }
         },
@@ -72,10 +73,10 @@ router.beforeEach(async (to, from) => {
   
   // data
   let deviceData = useBaseStore.device?.data || []
-  let isAuthenticated = 'alias' in deviceData
+  let alias = deviceData?.alias
+  let isAuthenticated = 'alias' in deviceData && alias
 
   if (isAuthenticated && (to.name == 'home' || to.name == 'connect')) {
-    console.log(`Home || Connect: ${to.name}`)
     return {name: 'dashboard'}
   }
 

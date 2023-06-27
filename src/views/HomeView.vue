@@ -20,9 +20,7 @@ const data = {
                 <AppLogo stroke-color="white" class="text-4xl sm:text-5xl" />
 
                 <p class="text-xs text-white font-cherry mt-3 sm:text-sm">
-                    Chat with anyone from anywhere at anytime,
-                    without them knowing who you are.
-                    That is if your alias doesn’t give them an hint :(
+                    Chat with anyone from anywhere at anytime :)
                 </p>
 
                 <RouterLink :to="{name: 'connect'}" class="mt-8 py-3 border border-white group bg-black rounded overflow-hidden duration-300 hover:bg-white">

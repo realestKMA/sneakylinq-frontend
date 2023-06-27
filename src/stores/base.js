@@ -1,4 +1,4 @@
-import { reactify, useLocalStorage } from "@vueuse/core";
+import { useStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -12,9 +12,9 @@ export const useBase = defineStore("base", () => {
     const baseWSUrl = "ws://192.168.1.103:8000"
     
     // storage
-    const did = useLocalStorage("did")
-    const device = useLocalStorage("device", {})
-    const scannedDevice = useLocalStorage("scanned-device", {})
+    const did = useStorage("did")
+    const device = useStorage("device", {})
+    const scannedDevice = useStorage("scanned-device", {})
 
     // events
     const deviceEventTypes = {

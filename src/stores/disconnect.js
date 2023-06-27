@@ -1,14 +1,12 @@
 import { defineStore } from 'pinia'
-import { useBase } from './base'
+import { useBase } from './base.js'
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { useChatP2P } from './chatp2p'
 
 export const useDisconnect = defineStore('disconnect', () => {
 
   // stores
   const useBaseStore = useBase()
-  const useChatP2PStore = useChatP2P()
 
   // route and router
   const router = useRouter()
@@ -23,46 +21,35 @@ export const useDisconnect = defineStore('disconnect', () => {
 
     const ws = new WebSocket(`${useBaseStore.baseWSUrl}/ws/disconnect/`, [useBaseStore.did])
 
-    ws.onmessage = (e) => {
-      const data = JSON.parse(e.data)
+    ws.onmessage = () => {
+      disconnect.loading = true
 
-      if (data?.status) {
-        disconnect.loading = true
+      // close websocket connection
+      ws.close(1000)
 
-        // clear device data and close websocket connection
-        ws.close(1000)
+      setTimeout(() => {
+        disconnect.open = disconnect.loading = false
 
-        setTimeout(() => {
-          disconnect.loading = false
-          
-          // navigate to connect view
-          router.push({ name: "connect" })
+        // reset device data alias to linq 
+        useBaseStore.device.data.alias = ''
 
-          // clear device data from localStorage
-          useBaseStore.device = {}
+        // navigate to connect view
+        router.push({ name: "connect" })
+      }, 1000)
+    }
 
-          // close disconnect modal
-          disconnect.open = false
-        }, 1000)
+    ws.onerror = () => {
+      disconnect.loading = true
 
-      }
+      setTimeout(() => {
+        // reset device data alias to linq 
+        useBaseStore.device.data.alias = ''
 
-      else {
-        useBaseStore.did = null
+        disconnect.open = disconnect.loading = false
 
-        setTimeout(() => {
-          ws.close()
-          disconnect.loading = false
-
-          // navigate to connect view
-          router.push({ name: "connect" })
-          // clear device data from localStorage
-          useBaseStore.device = {}
-
-          // close disconnect modal
-          disconnect.open = false
-        }, 1000)
-      }
+        // navigate to connect view
+        router.push({ name: "connect" })
+      }, 1000)
     }
 
   }
