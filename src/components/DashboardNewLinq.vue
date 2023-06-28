@@ -66,13 +66,14 @@ const allChecksPassed = computed(() => {
 
             <AppButton
                 type="button"
+                @click="useChatP2PStore.send({to: alias, message: message})"
                 :label="useChatP2PStore.chatConnect.connected ? 'Linq up':'You are offline'"
                 loading-text="Linqing..."
                 :disabled="!allChecksPassed" class="pt-10" />
 
             <!-- errors -->
-            <ul class="w-full border-t border-zinc-100 text-xs text-red-500 mt-10 py-5 list-disc list-inside md:text-sm">
-                <li>Error came in late :)</li>
+            <ul v-if="useChatP2PStore.chatNewMessage.error" class="w-full border-t border-zinc-100 text-xs text-red-500 mt-10 py-5 list-disc list-inside md:text-sm">
+                <li>{{ useChatP2PStore.chatNewMessage.error }}</li>
             </ul>
             <!-- errors -->
 

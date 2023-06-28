@@ -11,7 +11,7 @@ import { useChatP2P } from '../stores/chatp2p';
 // props
 const props = defineProps({
     alias: {type: String, required: true, default: 'Alias'},
-    did: {type: Number, required: true}
+    did: {type: String, required: true}
 })
 
 // emits
@@ -39,7 +39,7 @@ onClickOutside(root, () => isDelete.value = false)
         <button
             @click="emit('clicked-main')"
             type="button"
-            :class="useChatP2PStore.activeChat.did == props.did ? 'bg-zinc-800':'bg-transparent'"
+            :class="route.params.did == props.did ? 'bg-zinc-800':'bg-transparent'"
             class="relative w-full flex items-center rounded duration-300 p-3 group hover:bg-zinc-800 md:p-2">
     
             <!-- situation actions -->
@@ -47,14 +47,14 @@ onClickOutside(root, () => isDelete.value = false)
                 <IconTrashFull class="w-5 h-5 text-red-500" v-if="isDelete" />
                 <IconChat
                     v-else
-                    :class="useChatP2PStore.activeChat.did == props.did ? 'text-white':'text-zinc-400'"
+                    :class="route.params.did == props.did ? 'text-white':'text-zinc-400'"
                     class="w-4 h-4 duration-300 group-hover:text-white" />
             </div>
             <!-- situation actions -->
     
             <!-- chat alias -->
             <p
-                :class="useChatP2PStore.activeChat.did == props.did ? 'text-white':'text-zinc-400'"
+                :class="route.params.did == props.did ? 'text-white':'text-zinc-400'"
                 class="ml-3 lowercase text-base group-hover:text-white">{{ props.alias }}</p>
             <!-- chat alias -->
     
@@ -62,7 +62,7 @@ onClickOutside(root, () => isDelete.value = false)
         </button>
         
         <div
-            v-if="useChatP2PStore.activeChat.did == props.did"
+            v-if="route.params.did == props.did"
             :class="isDelete ? 'top-[0.77rem] md:top-[0.55rem]':'top-[0.90rem] md:top-[0.6rem]'"
             class="absolute right-2 duration-300 flex-grow flex items-center justify-end">
             
