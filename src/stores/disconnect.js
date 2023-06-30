@@ -2,11 +2,13 @@ import { defineStore } from 'pinia'
 import { useBase } from './base.js'
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { useChatP2P } from './chatp2p.js'
 
 export const useDisconnect = defineStore('disconnect', () => {
 
   // stores
   const useBaseStore = useBase()
+  const useChatP2PStore = useChatP2P()
 
   // route and router
   const router = useRouter()
@@ -18,6 +20,11 @@ export const useDisconnect = defineStore('disconnect', () => {
 
   function connectToDisconnect() {
     disconnect.loading = false
+
+    // disconnect chat first
+    if (useChatP2PStore.chatConnect.connected) {
+      useChatP2PStore.disconnect()
+    }
 
     const ws = new WebSocket(`${useBaseStore.baseWSUrl}/ws/disconnect/`, [useBaseStore.did])
 

@@ -3,6 +3,8 @@ const props = defineProps({
     label: {type: String, default: "label"},
     placeholder: {type: String, default: "Enter text..."},
     disabled: {type: Boolean, default: false},
+    max: {type: String, default: 200},
+    min: {type: String, default: 1},
     modelValue: {type: String},
 })
 
@@ -17,6 +19,8 @@ const emit = defineEmits(["update:modelValue"])
             :id="props.label"
             :placeholder="props.placeholder"
             :disabled="props.disabled"
+            :maxlength="props.max"
+            :minlength="props.min"
             cols="30"
             rows="1"
             :value="props.modelValue"

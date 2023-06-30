@@ -25,6 +25,7 @@ const aliasIsNotSelf = computed(() => {
     return aliasIsValid.value && alias.value !== useBaseStore.device?.data?.alias;
 })
 
+
 const allChecksPassed = computed(() => {
     return useChatP2PStore.chatConnect.connected
     && aliasIsValid.value

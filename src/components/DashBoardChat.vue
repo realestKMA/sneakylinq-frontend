@@ -73,7 +73,7 @@ onMounted(() => {
                         v-for="(chat, index) in useChatP2PStore.activeChat.messages"
                         :key="index"
                         :class="chat.type == 'send' ? 'bg-zinc-100 self-end' : 'bg-black text-white'"
-                        class="p-2 rounded w-7/12 text-sm whitespace-pre-line md:text-base md:w-6/12 lg:w-5/12">
+                        class="p-2 rounded w-7/12 text-sm whitespace-pre-wrap break-words selection:bg-cyan-500 md:text-base md:w-6/12 lg:w-5/12">
                         {{ chat.data }}
                     </p>
                 </TransitionGroup>
@@ -88,6 +88,7 @@ onMounted(() => {
                 <form @submit.prevent class="flex items-center justify-between gap-x-4">
                     <AppChatTextField
                         class="w-full"
+                        max="200"
                         :placeholder="useChatP2PStore.chatConnect.connected ? 'Send a message...':'Chat is offline'"
                         :disabled="!useChatP2PStore.chatConnect.connected || useChatP2PStore.chatNewMessage.sending"
                         v-model:model-value="message" />

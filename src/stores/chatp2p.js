@@ -21,11 +21,7 @@ export const useChatP2P = defineStore("chatp2p", () => {
     const onMessage = useStorage('on-message', {})
 
     // data to activate chat
-    const chatConnect = reactive({
-        connecting: false,
-        connected: false,
-        error: null
-    })
+    const chatConnect = reactive({ connecting: false, connected: false, error: null })
 
     const chatNewMessage = reactive({ sending: false, error: null })
 
@@ -44,7 +40,8 @@ export const useChatP2P = defineStore("chatp2p", () => {
                 messages: [{ type: data.message, data: data.data.message }]
             })
 
-            // navigate to the new chat if initiated by user
+            // update active chat data and navigate to the new chat
+            // if initiated by user
             if (data.message == 'send') {
                 activeChat.value = chatMessages.value.find((chat) => chat.did == data.data.did)
                 router.push({ name: 'chat', params: { did: data.data.did } })
@@ -69,12 +66,19 @@ export const useChatP2P = defineStore("chatp2p", () => {
             linq.alias = data.data.alias
 
             // notify user of linq alias changed
-            useNotifyStore.showNotify(`This linq change their alias to ${data.data.alias}`, null, "good", 5000)
+            useNotifyStore.showNotify(`This linq change their alias to ${data.data.alias}`, null, "good", 10000)
         }
 
         // update active chat messages if currently opened
         if (route.params.did == linq.did) {
             activeChat.value = linq
+        }
+
+        // if linqing with a user in the chat list but the user
+        // changed their alias
+        if (data.message == 'send' && !route.fullPath.endsWith(linq.did)) {
+            activeChat.value = linq
+            router.push({ name: 'chat', params: { did: data.data.did } })
         }
     }
 
@@ -171,7 +175,6 @@ export const useChatP2P = defineStore("chatp2p", () => {
             onWsMessage(JSON.parse(onMessage.value))
         }
     }
-
 
     // disconnect
     function disconnect() {
